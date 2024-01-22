@@ -1,0 +1,45 @@
+
+.postContainer {
+
+    border-radius: 4px;
+    margin-top: 15px;
+    padding: 18px;
+    background-color: rgb(255, 255, 255);
+    width: calc(95vw - 214px);
+    width: 600px;
+    background: linear-gradient(0deg, #1a1c2a00, #5a70d587);
+    backdrop-filter: blur(16px) saturate(100%);
+    -webkit-backdrop-filter: blur(16px) saturate(100%);
+    background: #1a1c2a00;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+   
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.postMedia{
+    position: static;
+
+
+    vertical-align: middle;
+    box-sizing: border-box;
+    object-fit: cover;
+    object-position: center center;
+    border-radius: 2px;
+    height: 364px;
+    width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+    .postContainer {
+
+        max-width: 95vw;
+
+    }
+}
+
+
+.postPP{
+    width: 40px;
+    border-radius: 50px;
+}

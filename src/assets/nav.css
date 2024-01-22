@@ -1,0 +1,104 @@
+.navSpan{
+    align-items: center;
+    display: flex;
+    text-decoration: none;
+    gap: 5px;
+    /* border: solid white 1px; */
+    border-radius: 25px;
+    padding: 8px;
+    width: 160px;
+  
+    color: #ddd !important;
+    text-decoration: none;
+  }
+  
+a{
+color: #F7EBEC;
+text-decoration: none;
+}
+
+@media only screen and (max-width: 768px) {
+
+
+    .spanName{
+      display: none !important;
+    }
+
+    .navSpan{
+        width: auto;
+    }
+
+  } 
+
+
+  nav{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: var(--navbar-width);
+    height: 100vh;
+    padding-left: 22px;
+    padding-right: 32px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    border-right: whitesmoke solid 1px;
+
+  }
+
+  @media only screen and (max-width: 768px) {
+    nav{
+
+
+      position: absolute;
+      flex-direction: row;
+
+      align-items: center;
+
+      height: var(--navbar-height);
+      width: 100vw;
+      background: #000027;
+      bottom: 0;
+      border-top: solid white 1px;
+      border-right: 0px;
+      background-color: #000027;
+     
+      padding: 12px 25px 12px 25px;
+
+      z-index: 1;
+
+    }
+
+    #navMenu, #navSetting{
+      display: flex;
+      flex-direction: row;
+    }
+
+  } 
+
+   
+  
+  .nm {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .p-2 {
+    padding: 8px;
+  }
+  .gap-2 {
+      gap: 2px;
+  }
+.okokok{
+  color: #ffffff00;
+}
+nav{
+  background: linear-gradient(45deg, #1a1d29, #1f2230);
+  box-shadow: 10px -10px 30px #191b26, -10px 10px 30px #212534;
+  border: none;
+}
+
+
