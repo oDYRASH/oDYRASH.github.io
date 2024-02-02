@@ -512,7 +512,6 @@ const postsData = ref([
 
 </script>
 <template>
-
     <navBar/>
 
     <div id="feedContainer">

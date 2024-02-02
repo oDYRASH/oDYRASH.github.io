@@ -4,23 +4,14 @@
     gap: 8px;
     padding: 9px;
     width: 310px;
-    
-    border-radius: 8px;
-    /* box-shadow: 20px -20px 60px #191b26, -20px 20px 60px #212534; */
-    backdrop-filter: blur(16px) saturate(100%);
     -webkit-backdrop-filter: blur(16px) saturate(100%);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 6px;
-    border: solid 1px rgb(90, 91, 103);
-
     cursor: pointer;
 
 }
 
 .inner:hover{
-    box-shadow: 0 4px 3px rrgb(77, 70, 70)
-
+    box-shadow: 0 1px 1px rgba(77, 70, 70, 0.558)
 }
 
 .contents{
@@ -47,7 +38,6 @@
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;
-    color: gray;
 }
 
 .css-18djg9v .main {
@@ -74,7 +64,6 @@
     border-left-width: 1px;
     border-left-style: solid;
     border-color: var(--game-item-color-200);
-    color: var(--gray500);
     font-size: 11px;
     font-weight: 400;
     line-height: 14px;
@@ -92,16 +81,13 @@
 }
 
 
-.champion-level {
-    width: 16px;
-    height: 16px;
-}
 
 .champion{
     position: relative;
 }
 
 .champion-level {
+    
     position: absolute;
     right: 0px;
     bottom: 0px;
@@ -118,19 +104,22 @@
     color: rgb(255, 255, 255);
     background: rgb(32, 45, 55);
     border-radius: 50%;
+
 }
 
 .game-lose{
-    background: linear-gradient(198deg, #3f1f1f87, #8b3a3afa);
+    background: var(--c-red);
 }
 
 .game-win{
-    background: linear-gradient(198deg, #201f3f87, #3b3a8bfa);;
+    background: var(--c-blue);
 }
 
 .match-history{
     overflow: auto;
     min-width: 333px;
+    height: 100%;
+    overflow-x: hidden;
     /* box-shadow: inset 0px 10px 5px #edff00, inset 0px -10px 5px #edff00; */
     /* box-shadow: inset 0px 23px 11px -10px #edff00; */
 }
@@ -140,7 +129,6 @@
 }
 
 .kda-ratio{
-    color: rgba(128, 128, 128, 0.669);
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;

@@ -13,6 +13,27 @@ export function secondsToHumanTime(seconds) {
     return dDisplay + hDisplay + mDisplay + sDisplay;
 }
 
+export function getLastSessionGames(data){
+    return data.slice(0, 5);
+    const filteredArray = [];
+
+    if(!data.length) return filteredArray
+
+    for (let i = 0; i < data.length; i++) {
+        if (i === 0 || (data[i].gameEndTimestamp - data[i - 1].gameEndTimestamp) < 3600000) {
+            // If it's the first element or the current date is more than 1 hour older
+            filteredArray.push(data[i]);
+        } else {
+            // Break out of the loop as soon as the condition is not met
+            break;
+        }
+    }
+
+    console.log(filteredArray.length)
+
+    return filteredArray
+}
+
 let o = {
     "allInPings": 0,
     "assistMePings": 0,

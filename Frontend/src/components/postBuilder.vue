@@ -1,15 +1,18 @@
 <script>
-    import { lolGame } from '../scripts/playerStatsInGame.js'
 
   export default {
     data() {
       return {
         activeTab: 'Total',
+        activePostType:'session',
       };
     },
     methods: {
       switchTab(tab) {
         this.activeTab = tab;
+      },
+      switchPostType(postType) {
+        this.activePostType = postType;
       },
     },
   };
@@ -21,27 +24,15 @@
 
 <script setup>
 
-  import { ref } from 'vue';
+  import sessionStat from './sessionStat.vue'
 
+  import { getLastSessionGames } from '../scripts/utils.js'
 
   const props = defineProps({
-        data: {
-            required: true,
-        },
-        puuid:{
+        sessionGame:{
           required:true
-        }})
-
-      
-    let game = ref(false)
-
-    function setGame(){
-      game = new lolGame(props.data, props.puuid)
-    }
-    
-    function setBaseStatsOnPost(){
-      return
-    }
+        }
+      })
 
 </script>
 
@@ -52,13 +43,17 @@
 
           <div class="d-flex flex-row justify-content-evenly mt-3 mb-3">
 
-            <span class="btn btn-secondary">SESSION   </span>
+            <span class="btn btn-secondary" @click="switchPostType('session')">SESSION</span>
             <span class="btn btn-secondary">CHAMPION  </span>
             <span class="btn btn-secondary">SEASON    </span>
           
           </div>
-      
-        <div class="post-builder-container"> <!--(newGameStats) => changeStas(newGameStats) -->
+
+
+        <div v-if="activePostType === 'session'">
+          <sessionStat v-if="sessionGame" :sessionGame="getLastSessionGames(sessionGame)"/>
+        </div>
+        <!--<div class="post-builder-container"> (newGameStats) => changeStas(newGameStats) 
             <div v-if="props.data">
               {{ setGame(), setBaseStatsOnPost() }}
               <div v-if="game">
@@ -97,11 +92,11 @@
             <div class="m-2">
                 <button type="button" class="btn btn-warning m-1" style="color: black !important;" @click="$emit('changeStatPreview', ['% Kill-Participation', game.player.killParticipationPerCent])">{{ game.player.killParticipationPerCent}}% Kill-Participation</button>
                 <button type="button" class="btn btn-warning m-1" style="color: black !important;" @click="$emit('changeStatPreview', ['KDA', game.player.KDAstring ])">KDA : {{ game.player.KDAstring }}</button>
-                <!-- <button type="button" class="btn btn-warning m-1">57% Kill-Participation</button>
-                <button type="button" class="btn btn-warning m-1">57% Kill-Participation</button> -->
+                <button type="button" class="btn btn-warning m-1">57% Kill-Participation</button>
+                <button type="button" class="btn btn-warning m-1">57% Kill-Participation</button>
             </div>
           </div>
 
-        </div>
+        </div>-->
       </div>
 </template>

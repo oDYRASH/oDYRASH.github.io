@@ -1,54 +1,43 @@
 <script setup>
 
-
-
-    import { ref, watchEffect } from 'vue';
-    import { getMatch } from '../scripts/lolApi.js';
     import { secondsToHumanTime } from '../scripts/utils.js';
     import { summonerSpell, runes } from '../scripts/constants.js';
     import { getGameMode, getKDA, timeAgo } from '../scripts/helper.js';
     import { lolGame } from '../scripts/playerStatsInGame.js';
 
+
     const props = defineProps({
-        matchId: {
-            type: String,
+        match: {
+            type: lolGame,
             required: true,
         }})
-
-    const loading = ref(true);
-    const error = ref(null);
-    const game = ref(false)
-    const DTOmatch = ref({})
-
-    const puuid = localStorage.getItem('LOLpuuid')
     
-    const playerPuuid = ref(puuid)
 
-    // Define the fetchData function
-    const fetchData = async () => {
-        loading.value = true;
-        // Your asynchronous data fetching logic here
-        try {
-            // Simulating an asynchronous API call
-            getMatch('europe', props.matchId).then(res => {
+//    // Define the fetchData function
+//     const fetchData = async () => {
+//         loading.value = true;
+//         // Your asynchronous data fetching logic here
+//         try {
+//             // Simulating an asynchronous API call
+//             getMatch('europe', props.matchId).then(res => {
 
-                game.value = new lolGame(res, puuid)
-                DTOmatch.value = res
+//                 game.value = new lolGame(res, puuid)
+//                 DTOmatch.value = res
 
-            })
+//             })
             
-        } catch (err) {
-            game.value = null;
-            error.value = 'Error fetching data';
-        } finally {
-            loading.value = false;
-        }
-    };
+//         } catch (err) {
+//             game.value = null;
+//             error.value = 'Error fetching data';
+//         } finally {
+//             loading.value = false;
+//         }
+//     };
     
-    // Watch the params of the route to fetch the data again
-    watchEffect(() =>   {
-        fetchData();
-    });
+//     // Watch the params of the route to fetch the data again
+//     watchEffect(() =>   {
+//         fetchData();
+//     });
 
 
 
@@ -57,71 +46,70 @@
 <script>
     // Your component definition
     export default {
-        emits: ['newUsedGameInConstructor']
+        emits: ['newStatSelected']
     }
-</script>
+</script> 
 
 <template>
-    <div v-if="loading">LOADING...</div>
-    <div v-if="game" class="contents" @click="$emit('newUsedGameInConstructor', [DTOmatch, playerPuuid])">
-        <div class="inner"  :class="game.player.win ? 'game-win' : 'game-lose'">
+    <div v-if="props.match" class="contents" @click="$emit('newStatSelected', props.match)"> <!--  @click="$emit('newUsedGameInConstructor', [DTOmatch, playerPuuid])" -->
+        <div class="inner"  :class="props.match.player.win ? 'game-win' : 'game-lose'">
             <div class="css-1mk3mai e13s2rqz2">
-                <div>{{ getGameMode(game.queueId)}}</div> <!-- gameInfo.gametype -->
-                <div>{{timeAgo(game.gameEndTimestamp)}}</div>
-                <div>{{ game.player.win ? "Victoire": "Défaite" }}</div><!-- gameInfo.win -->
-                <div>{{ secondsToHumanTime(game.gameDuration) }}</div><!-- gameInfo.duration -->
+                <div>{{ getGameMode(props.match.queueId)}}</div> <!-- gameInfo.gametype -->
+                <div>{{timeAgo(props.match.gameEndTimestamp)}}</div>
+                <div>{{ props.match.player.win ? "Victoire": "Défaite" }}</div><!-- gameInfo.win -->
+                <div>{{ secondsToHumanTime(props.match.gameDuration) }}</div><!-- gameInfo.duration -->
             </div>
             <div class=" css-18djg9v e13s2rqz3">
                 <div class="main">
-                <div class="info"><a target="_blank" rel="noreferrer" class="champion" href="/champions/singed/build"><img
-                            :src="`http://ddragon.leagueoflegends.com/cdn/13.5.1/img/champion/${game.player.championName}.png`"
-                            width="48" height="48" alt="Singed" class=" rounded-circle"><span class="champion-level">{{ game.player.champLevel }}</span></a>
+                <div class="info"><a target="_blank" rel="noreferrer" class="champion" ><img
+                            :src="`http://ddragon.leagueoflegends.com/cdn/13.5.1/img/champion/${props.match.player.championName}.png`"
+                            width="48" height="48" :alt="props.match.player.championName" class=" rounded-circle"><span class="champion-level">{{ props.match.player.champLevel }}</span></a>
                     <div class="css-10z45t0 e1e54nif0">
                         <div class="loadout-group">
                             <div class="spell" style="position: relative;"><img
                                     :src="`http://ddragon.leagueoflegends.com/cdn/13.5.1/img/spell/${
-							summonerSpell[game.player.summoner1Id]
+							summonerSpell[props.match.player.summoner1Id]
 						}`"
                                     width="22" height="22" alt="Flash"></div>
                             <div class="spell" style="position: relative;"><img
                                 :src="`http://ddragon.leagueoflegends.com/cdn/13.5.1/img/spell/${
-							summonerSpell[game.player.summoner2Id]
+							summonerSpell[props.match.player.summoner2Id]
 						}`"
                                     width="22" height="22" alt="Ghost"></div>
                         </div>
                         <div class="loadout-group">
                             <div class="rune rune-primary" style="position: relative;"><img
                                 :src="`https://ddragon.leagueoflegends.com/cdn/img/perk-images/${
-							runes[game.player.mainRune]
+							runes[props.match.player.mainRune]
 						}`"
                                     width="22" height="22" alt="Phase Rush"></div>
                             <div class="rune" style="position: relative;"><img
                                 :src="`https://ddragon.leagueoflegends.com/cdn/img/perk-images/${
-							runes[game.player.secondaryRune]
+							runes[props.match.player.secondaryRune]
 						}`"
                                     width="22" height="22" alt="Domination"></div>
                         </div>
                     </div>
                 </div>
                 <div class="kda-stats">
-                    <div class="kda"><span>{{ game.player.kills }}</span> / <span class="d">{{ game.player.deaths }}</span> / <span>{{ game.player.assists }}</span></div>
-                    <div class="kda-ratio">{{ getKDA(game.player.kills, game.player.deaths, game.player.assists) }}:1 KDA</div>
+                    <div class="kda"><span>{{ props.match.player.kills }}</span> / <span class="d">{{ props.match.player.deaths }}</span> / <span>{{ props.match.player.assists }}</span></div>
+                    <div class="kda-ratio">{{ getKDA(props.match.player.kills, props.match.player.deaths, props.match.player.assists) }}:1 KDA</div>
                 </div>
                 <div class="game-stats">
                     <div class="p-kill">
-                        <div class="" style="position: relative;">{{'P/Kill ' + game.player.killParticipationPerCent + '%'}}</div>
+                        <div class="" style="position: relative;">{{'P/Kill ' + props.match.player.killParticipationPerCent + '%'}}</div>
                     </div>
                     <div class="cs">
-                        <div class="" style="position: relative;">CS {{ game.player.CS }} <br> {{ game.player.CSmin }} cs/min</div>
+                        <div class="" style="position: relative;">CS {{ props.match.player.CS }} <br> {{ props.match.player.CSmin }} cs/min</div>
                     </div>
                     <div class="cs">
-                        <div class="" style="position: relative;">{{ Math.round(game.player.damagePerMinute)}} DGT/min</div>
+                        <div class="" style="position: relative;">{{ Math.round(props.match.player.damagePerMinute)}} DGT/min</div>
                     </div>
                 </div>
             </div>
             <div class="sub">
                 <div class="items">
-                    <div v-for="item in game.player.items">
+                    <div v-for="item in props.match.player.items">
                         <div class="item" style="position: relative;" v-if="item != 0"><img
                                 :src="`https://opgg-static.akamaized.net/meta/images/lol/14.1.1/item/${item}.png?image=q_auto,f_webp,w_64,h_64&amp;v=1702977255104`"
                                 width="22" height="22"></div>

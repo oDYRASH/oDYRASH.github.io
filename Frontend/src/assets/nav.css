@@ -1,20 +1,17 @@
 .navSpan{
     align-items: center;
     display: flex;
-    text-decoration: none;
     gap: 5px;
-    /* border: solid white 1px; */
     border-radius: 25px;
     padding: 8px;
     width: 160px;
   
-    color: #ddd !important;
-    text-decoration: none;
+    color: var(--text-color) !important;
   }
-  
-a{
-color: #F7EBEC;
-text-decoration: none;
+
+
+.spanName{
+  color: var(--text-color);
 }
 
 @media only screen and (max-width: 768px) {
@@ -36,15 +33,13 @@ text-decoration: none;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    width: var(--navbar-width);
+    background-color: var(--background-color);
     height: 100vh;
     padding-left: 22px;
     padding-right: 32px;
     padding-top: 20px;
     padding-bottom: 20px;
 
-    border-right: whitesmoke solid 1px;
 
   }
 
@@ -59,11 +54,8 @@ text-decoration: none;
 
       height: var(--navbar-height);
       width: 100vw;
-      background: #000027;
       bottom: 0;
-      border-top: solid white 1px;
       border-right: 0px;
-      background-color: #000027;
      
       padding: 12px 25px 12px 25px;
 
@@ -78,8 +70,6 @@ text-decoration: none;
 
   } 
 
-   
-  
   .nm {
     display: flex;
     flex-direction: column;
@@ -92,13 +82,11 @@ text-decoration: none;
   .gap-2 {
       gap: 2px;
   }
-.okokok{
-  color: #ffffff00;
-}
+
 nav{
-  background: linear-gradient(45deg, #1a1d29, #1f2230);
-  box-shadow: 10px -10px 30px #191b26, -10px 10px 30px #212534;
   border: none;
 }
 
-
+.material-icons{
+  color: var(--text-color) !important;
+}

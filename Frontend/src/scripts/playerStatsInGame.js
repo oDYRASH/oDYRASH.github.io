@@ -3465,7 +3465,7 @@ const data = {
 }
 
 
-
+//game.player.assists
 export class lolGame {
     constructor(MatchDto, puuid){
         this.MatchDto = MatchDto
@@ -3479,6 +3479,11 @@ export class lolGame {
 
     get gameEndTimestamp() {
         return this.MatchDto.gameEndTimestamp;
+    }
+
+
+    get gameStartTimestamp() {
+        return this.MatchDto.gameStartimestamp;
     }
 
     get gameId() {
