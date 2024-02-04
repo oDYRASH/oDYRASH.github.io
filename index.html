@@ -10,4 +10,19 @@
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
+  <script>
+
+let urlLevlLink = 'https://levellink-2f58fa4fbe2a.herokuapp.com/api/?format=json'
+let laMeteo = "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m"  
+fetch(laMeteo, { 
+    method: "GET", // GET, POST, PUT, DELETE, etc.
+    // mode: "no-cors", // cors, no-cors, same-origin
+}).then(console.log)
+  
+fetch(urlLevlLink, { 
+    method: "GET", // GET, POST, PUT, DELETE, etc.
+    // mode: "no-cors", // cors, no-cors, same-origin
+}).then(console.log)
+  
+</script>
 </html>
